@@ -47,30 +47,31 @@ app.post("/cadastrarUsuario", async (req, res) => {
     }
 });
  
-app.get("/cadastrarUsuario", async(req, res)=>{
-    res.sendFile(__dirname +"/cadastrarUsuario.html");
-});
+
  
-const produtoAcademiaSchema = new mongoose.Schema({
-    id_produtoMusical: {type: String, required: true,},
+const produtoMusicalSchema = new mongoose.Schema({
+    id_produtoMusical: {type: String, required: true},
     descricao: {type : String},
     marca: {type : String},
-    data_fabricacao: {type : Date},
-    produto_estoque: {type : Number},
-  });
+    dataFabricacao: {type : Date},
+    produtoEstoque: {type : Number}
+});
+
+const ProdutoMusical = mongoose.model('produtoMusical', produtoMusicalSchema);
  
-  app.post("/cadastrarProdutoMusical", async (req, res) => {
-    const id_produtoMusical = req.body.id_produtoacademia;
+app.post("/cadastrarProdutoMusical", async (req, res) => {
+    const id_produtoMusical = req.body.id_produtoMusical;
     const descricao = req.body.descricao;
     const marca = req.body.marca;
-    const data_fabricacao = req.body.data_fabricacao;
-    const produto_estoque = req.body.quantidade_estoque;
+    const dataFabricacao = req.body.dataFabricacao;
+    const produtoEstoque = req.body.produtoEstoque;
  
-    if (id_produtoMusical == null || descricao == null || marca == null || data_fabricacao == null || produto_estoque == null) {
+    if (id_produtoMusical == null || descricao == null || marca == null || dataFabricacao == null || produtoEstoque == null) {
         return res.status(400).json({ error: "Preencher todos os campos" });
     }
  
-    const id_produtoMusicalExiste = await ProdutoMusical.findOne({ id_produtoMusical: id_produtoMusical });
+    const id_produtoMusicalExiste = await ProdutoMusical.findOne({ id_produtoMusical:id_produtoMusical});
+
     if (id_produtoMusicalExiste) {
         return res.status(400).json({ error: "O produto já existe!!!" });
     }
@@ -79,16 +80,20 @@ const produtoAcademiaSchema = new mongoose.Schema({
         id_produtoMusical : id_produtoMusical ,
         descricao: descricao,
         marca: marca,
-        data_fabricacao: data_fabricacao,
-        produto_estoque: quantidade_estoque,
+        data_fabricacao: dataFabricacao,
+        produto_estoque: produtoEstoque
     });
  
     try {
-        const newProdutoMusical  = await produtoMusical .save();
-        res.json({ error: null, msg: "O cadastro esta ok", produtoMusicalId: newProdutoMusical_id });
+        const newProdutoMusical = await produtoMusical.save();
+        res.json({ error: null, msg: "O cadastro esta ok", produtoMusicalId: newProdutoMusical});
     } catch (error) {
         res.status(400).json({ error });
     }
+});
+
+app.get("/cadastrarUsuario", async(req, res)=>{
+    res.sendFile(__dirname +"/cadastrarUsuario.html");
 });
  
 app.get("/cadastrarProdutoMusical ", async(req, res)=>{
