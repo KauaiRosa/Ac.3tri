@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Produtos Musicais</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background-color: #222;
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-user{
+            background-color: coral;
+            width: 480px;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1{
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        label{
+            display: block;
+            color: white;
+        }
+
+        input{
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 15px;
+        }
+
+        form div{
+            text-align: right;
+            padding-right: 30px;
+        }
+
+        button{
+            background-color: chartreuse;
+            font-weight: bold;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 5px;
+            border:none;
+
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="form-user">
+        <h1>Cadastro Produtos Musicais</h1>
+    
+        <form action="/cadastrarProdutoMusica" method="post">
+            <label for="id_idprod">Id Produto</label>
+            <input type="text" name="id_produtoMusica" id="id_produtoMusica">
+            <label for="id_descricao">Descrição</label>
+            <input type="text" name="descricao" id="descricao">
+            <label for="id_marca">Marca</label>
+            <input type="text" name="marca" id="marca">
+            <label for="id_data">Data Fabricação</label>
+            <input type="date" name="data_fabricacao" id="data_fabricacao">
+            <label for="id_quant">Quantidade Estoque</label>
+            <input type="number" name="quantidade_estoque" id="quantidade_estoque">            
+            <div>
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+    <script src="musicstore.js"></script>
+</body>
+</html>
