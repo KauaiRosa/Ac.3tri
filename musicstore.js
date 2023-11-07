@@ -71,6 +71,10 @@ app.post("/cadastrarProdutoMusica", async (req, res) => {
     if (id_produtoMusica == null || descricao == null || marca == null || data_fabricacao == null || quantidade_estoque == null) {
         return res.status(400).json({ error: "Preencher todos os campos" });
     }
+
+    if (quantidade_estoque <= 0 || quantidade_estoque > 37) {
+        return res.status(400).json({ error: "A quantidade em estoque deve ser um valor menor ou igual a 37."});
+    }
  
     const id_produtoMusicaExiste = await ProdutoMusica.findOne({ id_produtoMusica: id_produtoMusica });
     if (id_produtoMusicaExiste) {
